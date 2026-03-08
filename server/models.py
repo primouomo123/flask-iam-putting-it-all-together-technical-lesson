@@ -11,6 +11,8 @@ class User(db.Model):
     username = db.Column(db.String)
     _password_hash = db.Column(db.String)
 
+    posts = db.relationship('Post', back_populates='user')
+
     @hybrid_property
     def password_hash(self):
         raise AttributeError('Password hashes may not be viewed.')
