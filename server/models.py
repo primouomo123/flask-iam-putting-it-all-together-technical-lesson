@@ -46,3 +46,16 @@ class Post(db.Model):
 
     def __repr__(self):
         return f'<Post {self.id}: {self.content}>'
+
+
+class UserSchema(Schema):
+    id = fields.Int()
+    username = fields.String()
+
+    posts = fields.List(fields.Nested(lambda: PostSchema(exclude=("user",))))
+
+class PostSchema(Schema):
+    id = fields.Int()
+    content = fields.String()
+
+    user = fields.Nested(UserSchema(exclude=("posts",)))
