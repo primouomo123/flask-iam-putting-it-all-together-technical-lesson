@@ -8,7 +8,7 @@ class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String)
+    username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
 
     posts = db.relationship('Post', back_populates='user')
@@ -33,9 +33,12 @@ class User(db.Model):
 
 class Post(db.Model):
     __tablename__ = 'posts'
+    __table_args__ = (
+        db.CheckConstraint('length(content) <= 400'),
+    )
 
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String)
+    content = db.Column(db.String, nullable=False)
 
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
 
