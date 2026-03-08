@@ -30,7 +30,6 @@ class User(db.Model):
     def __repr__(self):
         return f'<User {self.username}>'
 
-
 class Post(db.Model):
     __tablename__ = 'posts'
     __table_args__ = (
@@ -46,7 +45,6 @@ class Post(db.Model):
 
     def __repr__(self):
         return f'<Post {self.id}: {self.content}>'
-
 
 class UserSchema(Schema):
     id = fields.Int()
